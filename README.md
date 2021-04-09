@@ -1,3 +1,3 @@
-# papermc-error-parser
+# papermc-logs-parser
 
-Parses errors thrown by PaperMC (same for Spigot, Bukkit).
+Parses the log file by PaperMC (same for Spigot, Bukkit).
