@@ -1,3 +1,3 @@
-# papermc-logs-parser
+# mymaid4-errors-tracker
 
-Parses the log file by PaperMC (same for Spigot, Bukkit).
+[book000/papermc-logs-parser](https://github.com/book000/papermc-logs-parser) をフォークして作られた、[jaoafa/MyMaid4](https://github.com/jaoafa/MyMaid4) のエラー検知・Issue 作成アプリケーションです。
