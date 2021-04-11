@@ -82,7 +82,7 @@ def createIssue(file: str, title: str, body: str):
         json.dump(created, f)
 
 
-def getCauseLine(messages: list[str]):
+def getCauseLine(messages: list):
     # 優先度: command -> customEvents -> event -> tasks -> discordEvent -> httpServer -> lib
     mymaid_messages = list(filter(lambda x: x.startswith("\tat com.jaoafa.mymaid4"), messages))
     regex = r"at (.+?)\((.+)\.java:([0-9]+)\)"
