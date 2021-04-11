@@ -1,0 +1,7 @@
+.idea
+venv
+config.json
+data.json
+created.json
+output.json
+*.pyc
