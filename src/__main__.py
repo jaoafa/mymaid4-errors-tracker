@@ -114,15 +114,17 @@ def getCauseLine(messages: list):
 
     body = textwrap.dedent("""
     ### Stacktrace
-    
+    {TITLE}
+
     ```
     {STACKTRACE}
     ```
-    
+
     ### LINK
-    
+
     {URL}
     """).format(
+        TITLE=title,
         STACKTRACE="\n".join(messages),
         URL="https://github.com/jaoafa/MyMaid4/blob/master/src/main/java/{0}.java#L{1}".format(
             match[0][:match[0].rfind(".")].replace(".", "/"),
