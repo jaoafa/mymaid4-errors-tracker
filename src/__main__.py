@@ -1,12 +1,11 @@
-import os
 import json
+import os
 import re
 import textwrap
 
-import github.ProjectColumn
+from github import Github
 
 from src import parser
-from github import Github
 
 
 def main():
@@ -47,13 +46,13 @@ def main():
 
 
 def errorParser(log: dict):
-    if log["level"] != "ERROR":
+    if log["level"] != "ERROR" and log["level"] != "WARN":
         return
     if "com.jaoafa.mymaid4" not in log["messages"]:
         return
 
     lines = log["messages"].split("\n")
-    getCauseLine(lines)
+    getCauseLine(log["time"], lines)
 
 
 def isIssueCreated(file: str):
@@ -82,7 +81,7 @@ def createIssue(file: str, title: str, body: str):
         json.dump(created, f)
 
 
-def getCauseLine(messages: list):
+def getCauseLine(datetime: str, messages: list):
     # 優先度: command -> customEvents -> event -> tasks -> discordEvent -> httpServer -> lib
     mymaid_messages = list(filter(lambda x: x.startswith("\tat com.jaoafa.mymaid4"), messages))
     regex = r"at (.+?)\((.+)\.java:([0-9]+)\)"
@@ -114,7 +113,7 @@ def getCauseLine(messages: list):
 
     body = textwrap.dedent("""
     ### Stacktrace
-    {TITLE}
+    {TITLE} ({DATE})
 
     ```
     {STACKTRACE}
@@ -125,6 +124,7 @@ def getCauseLine(messages: list):
     {URL}
     """).format(
         TITLE=title,
+        DATE=datetime,
         STACKTRACE="\n".join(messages),
         URL="https://github.com/jaoafa/MyMaid4/blob/master/src/main/java/{0}.java#L{1}".format(
             match[0][:match[0].rfind(".")].replace(".", "/"),
