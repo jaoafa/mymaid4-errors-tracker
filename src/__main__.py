@@ -109,7 +109,7 @@ def getCauseLine(datetime: str, messages: list):
     title = "[{0}:{1}] {2}".format(
         (match[1] if match is not None else "?"),
         (match[2] if match is not None else "?"),
-        messages[1])
+        messages[0] if len(messages) == 1 else messages[1])
 
     body = textwrap.dedent("""
     ### Stacktrace
